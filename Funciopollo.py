@@ -1,0 +1,2 @@
+''
+def informe(vuelos):
