@@ -1,2 +1,1 @@
-''
-def informe(vuelos):
+a = "A"
