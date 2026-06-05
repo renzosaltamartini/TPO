@@ -19,13 +19,14 @@ def registrar_vuelos():
         print("4 - 10 CARACTERES Y ALFANUMERICO")
         print()
         codigo = input("Ingrese el codigo de vuelo: ")
-        
-        while len(codigo) < 4 or len(codigo) > 10:
-            print("El codigo debe tener entre 4 y 10 caracteres.")
-            codigo = input("Ingrese el codigo de vuelo: ")
 
-        while not codigo.isalnum():
-            print("El codigo debe ser alfanumerico, sin espacios ni simbolos.")
+        while len(codigo) < 4 or len(codigo) > 10 or not codigo.isalnum() or not any(c.isdigit() for c in codigo):
+            if len(codigo) < 4 or len(codigo) > 10:
+                print("El codigo debe tener entre 4 y 10 caracteres.")
+            elif not codigo.isalnum():
+                print("El codigo debe ser alfanumerico, sin espacios ni simbolos.")
+            elif not any(c.isdigit() for c in codigo):
+                print("El codigo debe contener al menos un numero.")
             codigo = input("Ingrese el codigo de vuelo: ")
 
         codigos_existentes = [v[0] for v in vuelos] # BUSCA EN LA LISTA vuelos PARTIENDO DESDE LA PRIMER LISTA Y CON EL SUB-INDICE 0
@@ -34,6 +35,7 @@ def registrar_vuelos():
             print("Ese codigo ya existe, ingrese uno diferente.")
             codigo = input("Ingrese el codigo de vuelo: ")
             codigos_existentes = [v[0] for v in vuelos]
+
         print(f"El codigo: {codigo}, fue registrado exitosamente.")
         vuelo.append(codigo)
 
