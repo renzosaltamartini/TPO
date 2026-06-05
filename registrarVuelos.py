@@ -22,5 +22,3 @@ def registrar_vuelos():
     while horario[2] != ":" or not horario[0:2].isdigit() or not horario[3:5].isdigit():
         print("Error: formato inválido. Ejemplo: 08:30")
         horario = input("Ingrese el horario, respeta (HH:MM): ")
-
-#registrar_vuelos()
