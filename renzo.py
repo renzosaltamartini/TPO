@@ -1,4 +1,4 @@
-vuelos = []
+matriz_vuelos = []
 
 # PARA CREAR UN VUELO DESDE OTRO ARCHIVO, ejemplo:
 # vuelo = function.registrar_vuelos()
@@ -29,12 +29,25 @@ def registrar_vuelos():
                 print("El codigo debe contener al menos un numero.")
             codigo = input("Ingrese el codigo de vuelo: ")
 
-        codigos_existentes = [v[0] for v in vuelos] # BUSCA EN LA LISTA vuelos PARTIENDO DESDE LA PRIMER LISTA Y CON EL SUB-INDICE 0
+        codigos_existentes = [v[0] for v in matriz_vuelos] # BUSCA EN LA LISTA vuelos PARTIENDO DESDE LA PRIMER LISTA Y CON EL SUB-INDICE 0
                                                     # YA QUE AHI SE ENCUENTRAN LOS CODIGOS
         while codigo in codigos_existentes:
             print("Ese codigo ya existe, ingrese uno diferente.")
             codigo = input("Ingrese el codigo de vuelo: ")
-            codigos_existentes = [v[0] for v in vuelos]
+
+            while len(codigo) < 4 or len(codigo) > 10 or not codigo.isalnum() or not any(c.isdigit() for c in codigo):
+                if len(codigo) < 4 or len(codigo) > 10:
+                    print("El codigo debe tener entre 4 y 10 caracteres.")
+                elif not codigo.isalnum():
+                    print("El codigo debe ser alfanumerico, sin espacios ni simbolos.")
+                elif not any(c.isdigit() for c in codigo):
+                    print("El codigo debe contener al menos un numero.")
+
+                codigo = input("Ingrese el codigo de vuelo: ")
+
+            codigos_existentes = [v[0] for v in matriz_vuelos]
+
+        # LO QUE HACE LA FUNCION ANY, ES QUE DETECTA SI AL MENOS (ANY = AL MENOS) HAY UN DIGITO EN EL CODIGO: codigo
 
         print(f"El codigo: {codigo}, fue registrado exitosamente.")
         vuelo.append(codigo)
@@ -69,10 +82,11 @@ def registrar_vuelos():
         print()
         print(f"{"4/7"} {2 * "--"} {"PASAJEROS"} {2 * "--"}")
         print()
-        pasajeros = int(input("Ingrese la cantidad de pasajeros: "))
-        while pasajeros < 0:
-            print("No pueden haber 0 pasajeros")
-            pasajeros = int(input("Ingrese la cantidad de pasajeros: "))
+        pasajeros = input("Ingrese la cantidad de pasajeros: ")
+        while not pasajeros.isdigit() or int(pasajeros) < 0:
+            print("El ingreso de pasajeros esta mal.")
+            pasajeros = input("Ingrese la cantidad de pasajeros: ")
+        pasajeros = int(pasajeros)
         print(f"El total de pasajeros: {pasajeros} fue registrado.")
         vuelo.append(pasajeros)
 
@@ -93,10 +107,11 @@ def registrar_vuelos():
         print(f">>> 2.   Embarcando")
         print(f">>> 3.   En Vuelo")
         print(f">>> 4.   Cancelado")
-        opcion_operativo = int(input("Selecciona la opcion del 1 al 4: "))
-        while opcion_operativo < 1 or opcion_operativo > 4:
+        opcion_operativo = input("Selecciona la opcion del 1 al 4: ")
+        while not opcion_operativo.isdigit() or int(opcion_operativo) < 1 or int(opcion_operativo) > 4:
             print("La opcion es incorrecta, debe ser del 1 al 4")
-            opcion_operativo = int(input("Selecciona la opcion del 1 al 4: "))
+            opcion_operativo = input("Selecciona la opcion del 1 al 4: ")
+        opcion_operativo = int(opcion_operativo)
         if opcion_operativo == 1:
             estado_operativo = "Programado"
         elif opcion_operativo == 2:
@@ -113,10 +128,11 @@ def registrar_vuelos():
         print()
         print(f">>> 1.   Nacional")
         print(f">>> 2.   Internacional")
-        opcion_vuelo = int(input("Selecciona la opcion 1 o 2: "))
-        while opcion_vuelo < 1 or opcion_vuelo > 2:
+        opcion_vuelo = input("Selecciona la opcion 1 o 2: ")
+        while not opcion_vuelo.isdigit() or int(opcion_vuelo) < 1 or int(opcion_vuelo) > 2:
             print("La opcion es incorrecta, debe ser 1 o 2")
-            opcion_vuelo = int(input("Selecciona la opcion 1 o 2: "))
+            opcion_vuelo = input("Selecciona la opcion 1 o 2: ")
+        opcion_vuelo = int(opcion_vuelo)
         if opcion_vuelo == 1:
             tipo_vuelo = "Nacional"
         else:
@@ -127,19 +143,19 @@ def registrar_vuelos():
         print()
         print(f"{2 * "--"} {"VUELO REGISTRADO"} {2 * "--"}")
         print(f"El vuelo con el codigo: {codigo} fue registrado exitosamente.") # TERMINA EL REGISTRO DE VUELO
-        vuelos.append(vuelo) # SE AGREGA LA LISTA CREADA DE ESTE VUELO A LA LISTA DE TODOS LOS VUELOS
+        matriz_vuelos.append(vuelo) # SE AGREGA LA LISTA CREADA DE ESTE VUELO A LA LISTA DE TODOS LOS VUELOS
 
         print()
         print(f"{4 * "--"} {"¿REGISTRAR OTRO VUELO?"} {4 * "--"}")
         print(f">>> Si:   1")
         print(f">>> No:   -1")
-        n = int(input("Elegi la opcion 1(si) o -1(no): "))
-        while n != 1 and n != -1:
+        n = input("Elegi la opcion 1(si) o -1(no): ")
+        while n != "1" and n != "-1":
             print("La opcion es incorrecta, debe ser -1 o 1")
-            n = int(input("Elegi la opcion 1(si) o -1(no): "))
-        
+            n = input("Elegi la opcion 1(si) o -1(no): ")
+        n = int(n)
         if n == -1:
             print(f"{4 * "--"} {"SKYBRIDGE AIRLINES"} {4 * "--"}")
             print("Registro de vuelos finalizado.")
 
-    return vuelos
+    return matriz_vuelos
