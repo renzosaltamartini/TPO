@@ -1,3 +1,15 @@
+def alta_vuelos():
+    pass
+
+def baja_vuelos():
+    pass
+
+def modificar_vuelos():
+    pass
+
+def informe():
+    pass
+
 def menu():
 
     print("=" * 50)
@@ -10,21 +22,35 @@ def menu():
     print("5. Salir")
     print("=" * 50)
 
-    opcion = int(input("Seleccione una opción: "))
+    opcion = input("Seleccione una opción: ")
 
-    while opcion < 1 or opcion > 5 :
+    while not opcion.isdigit() or int(opcion) < 1 or int(opcion) > 5:
         print("Opción inválida. Intente nuevamente.")
-        opcion = int(input("Seleccione una opción: "))
+        opcion = input("Seleccione una opción: ")
+
+    opcion = int(opcion)
 
     return opcion
 
-
-
 def main():
+    mtrz_vuelos = []
+    opcion = 0
 
-    opcion = menu()
+    while opcion != 5:
+        opcion = menu()
 
+        if opcion == 1:
+            mtrz_vuelos = alta_vuelos(mtrz_vuelos)
 
-    
+        elif opcion == 2:
+            mtrz_vuelos = baja_vuelos(mtrz_vuelos)
+
+        elif opcion == 3:
+            mtrz_vuelos = modificar_vuelos(mtrz_vuelos)
+
+        elif opcion == 4:
+            informe(mtrz_vuelos)
+
+    print("Programa finalizado.")
 
 main()
