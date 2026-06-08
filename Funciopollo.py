@@ -1,19 +1,3 @@
-'''Verificar si hay vuelos cargados.
-Si no hay, mostrar: "No hay vuelos registrados".
-Ordenar los vuelos:
-De mayor a menor cantidad de pasajeros.
-Si dos tienen la misma cantidad de pasajeros, ordenar por destino alfabéticamente.
-Recorrer la lista de vuelos con un for.
-Mostrar los datos de cada vuelo:
-Código
-Destino
-Horario
-Pasajeros
-Equipaje
-Estado
-Tipo
-Eso es todo. El objetivo es mostrar todos los vuelos ordenados correctamente.'''
-
 def informe(vuelos):
     if len(vuelos) == 0:
         print("No hay vuelos registrados")
