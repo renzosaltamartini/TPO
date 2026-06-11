@@ -1,5 +1,5 @@
 
-def Baja_vuelos(matriz_vuelos):
+def baja_vuelos(matriz_vuelos):
     #esta funcion elimina vuelos ya cargados
 
     matriz = matriz_vuelos
@@ -16,20 +16,21 @@ def Baja_vuelos(matriz_vuelos):
 
         for i in range(len(matriz)):
             
-            if codigo in matriz[i]: #nos fijamos si esta el codigo
+            if matriz[i][0] == codigo: #nos fijamos si esta el codigo
                 print("el vuelo encontrado tiene los datos {}".format(matriz[i]))
                 print()
                 vuelo_encontrado = 1 #para saber si encontro el vuelo para un if afeura del for
 
                 while eliminar == 0:
                     
-                    eliminar = int(input("desea eliminarlo? 1/2(si/no) "))    
+                    eliminar = input("desea eliminarlo? (si/no) ")
+                    eliminar = eliminar.lower() #hacemos que la variable este si o si en minuscula
                     
-                    if eliminar == 1:
+                    if eliminar == "si":
                         matriz.pop(i) #eliminamos el dato de la matriz de un valor en especifico
                         print()
                         print("Vuelo eliminado")
-                    elif eliminar == 2:
+                    elif eliminar == "no":
                         print()
                         print("eliminacion cancelada")
                     else:
