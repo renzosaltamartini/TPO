@@ -11,7 +11,13 @@ def informe():
     pass
 
 def menu():
+    """
+    autor: Santiago Gonzalez
 
+    Muestra el menú principal del sistema, solicita una opción al usuario,
+    valida que esté entre las opciones permitidas y devuelve la opción elegida.
+    
+    """
     print("=" * 50)
     print("SISTEMA DE GESTIÓN: SKYBRIDGE AIRLINES")
     print("=" * 50)
@@ -33,6 +39,10 @@ def menu():
     return opcion
 
 def main():
+    """
+    Autor: Santiago Gonzalez
+
+    """
     mtrz_vuelos = []
     opcion = 0
 
