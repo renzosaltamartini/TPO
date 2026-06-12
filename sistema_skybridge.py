@@ -1,4 +1,3 @@
-
 def registrar_vuelos(matriz_vuelos):
     """
     Autor: Renzo Saltamartini
@@ -20,34 +19,58 @@ def registrar_vuelos(matriz_vuelos):
         print()
         codigo = input("Ingrese el codigo de vuelo: ")
 
-        while len(codigo) < 4 or len(codigo) > 10 or not codigo.isalnum() or not any(c.isdigit() for c in codigo):
+        digitos = 0
+        for c in codigo:
+            if c.isdigit():
+                digitos += 1
+
+        while len(codigo) < 4 or len(codigo) > 10 or not codigo.isalnum() or digitos == 0:
             if len(codigo) < 4 or len(codigo) > 10:
                 print("El codigo debe tener entre 4 y 10 caracteres.")
             elif not codigo.isalnum():
                 print("El codigo debe ser alfanumerico, sin espacios ni simbolos.")
-            elif not any(c.isdigit() for c in codigo):
+            elif digitos == 0:
                 print("El codigo debe contener al menos un numero.")
+
             codigo = input("Ingrese el codigo de vuelo: ")
 
-        codigos_existentes = [v[0] for v in matriz_vuelos] # BUSCA EN LA LISTA vuelos PARTIENDO DESDE LA PRIMER LISTA Y CON EL SUB-INDICE 0
-                                                    # YA QUE AHI SE ENCUENTRAN LOS CODIGOS
+            digitos = 0
+            for c in codigo:
+                if c.isdigit():
+                    digitos += 1
+
+        codigos_existentes = []
+        a = 0
+        for i in matriz_vuelos:
+            if matriz_vuelos[a][0]:
+                codigos_existentes.append(matriz_vuelos[a][0])
+            a += 1
+
         while codigo in codigos_existentes:
             print("Ese codigo ya existe, ingrese uno diferente.")
             codigo = input("Ingrese el codigo de vuelo: ")
 
-            while len(codigo) < 4 or len(codigo) > 10 or not codigo.isalnum() or not any(c.isdigit() for c in codigo):
+            digitos = 0
+            for c in codigo:
+                if c.isdigit():
+                    digitos += 1
+
+            while len(codigo) < 4 or len(codigo) > 10 or not codigo.isalnum() or digitos == 0:
                 if len(codigo) < 4 or len(codigo) > 10:
                     print("El codigo debe tener entre 4 y 10 caracteres.")
                 elif not codigo.isalnum():
                     print("El codigo debe ser alfanumerico, sin espacios ni simbolos.")
-                elif not any(c.isdigit() for c in codigo):
+                elif digitos == 0:
                     print("El codigo debe contener al menos un numero.")
 
                 codigo = input("Ingrese el codigo de vuelo: ")
 
-            codigos_existentes = [v[0] for v in matriz_vuelos]
-
-        # LO QUE HACE LA FUNCION ANY, ES QUE DETECTA SI AL MENOS (ANY = AL MENOS) HAY UN DIGITO EN EL CODIGO: codigo
+                codigos_existentes = []
+                a = 0
+                for i in matriz_vuelos:
+                    if matriz_vuelos[a][0]:
+                        codigos_existentes.append(matriz_vuelos[a][0])
+                    a += 1
 
         print(f"El codigo: {codigo}, fue registrado exitosamente.")
         vuelo.append(codigo)
@@ -157,6 +180,8 @@ def registrar_vuelos(matriz_vuelos):
         if n == -1:
             print(f"{4 * "--"} {"SKYBRIDGE AIRLINES"} {4 * "--"}")
             print("Registro de vuelos finalizado.")
+            print(matriz_vuelos)
+            print(codigos_existentes)
 
     return matriz_vuelos
 
@@ -294,7 +319,7 @@ def informe(vuelos):
                         vuelos[i] = vuelos[j]
                         vuelos[j] = aux
         
-    print(4 * "--" + " IFORME GENERAL " + 4 * "--")
+    print(4 * "--" + " INFORME GENERAL " + 4 * "--")
     # Recorre todos los vuelos de la lista
     for vuelo in vuelos:
         # Imprime los detalles de cada vuelo
