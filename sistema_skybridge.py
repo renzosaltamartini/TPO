@@ -1,4 +1,5 @@
 import registro_vuelos
+from menu import obtener_opcion_menu
 
 def baja_vuelos(matriz_vuelos):
     """
@@ -148,34 +149,7 @@ def informe(vuelos):
         print("Tipo:", vuelo[6])
         print()
 
-def menu():
-    """
-    Autor: Santiago Gonzalez
 
-    No recibe parametros.
-    Muestra el menú principal del sistema, solicita una opción al usuario,
-    valida que esté entre las opciones permitidas y devuelve la opción elegida.
-
-    """
-    print("=" * 50)
-    print("SISTEMA DE GESTIÓN: SKYBRIDGE AIRLINES")
-    print("=" * 50)
-    print("1. Registrar vuelo (Alta)")
-    print("2. Eliminar vuelo (Baja)")
-    print("3. Modificar vuelo (Modificación)")
-    print("4. Informe General")
-    print("5. Salir")
-    print("=" * 50)
-
-    opcion = input("Seleccione una opción: ")
-
-    while not opcion.isdigit() or int(opcion) < 1 or int(opcion) > 5:
-        print("Opción inválida. Intente nuevamente.")
-        opcion = input("Seleccione una opción: ")
-
-    opcion = int(opcion)
-
-    return opcion
 
 def main():
     """
@@ -186,7 +160,7 @@ def main():
     opcion = 0
 
     while opcion != 5:
-        opcion = menu()
+        opcion = obtener_opcion_menu()
 
         if opcion == 1:
             matriz_vuelos = registro_vuelos.registrar_vuelos(matriz_vuelos)
