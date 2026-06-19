@@ -212,6 +212,5 @@ def registrar_vuelos(matriz_vuelos):
             print(f"{4 * "--"} {"SKYBRIDGE AIRLINES"} {4 * "--"}")
             print("Registro de vuelos finalizado.")
             print(matriz_vuelos)
-            print(codigos_existentes)
 
     return matriz_vuelos
