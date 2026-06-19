@@ -64,81 +64,126 @@ def baja_vuelos(matriz_vuelos):
     return matriz
 
 
-def modificar_vuelos (vuelos):
-    """
-    Autor: Facundo Gallo
+def cambiar_estado(vuelos, i):
+    print("1. Programado")
+    print("2. Embarcando")
+    print("3. En Vuelo")
+    print("4. Cancelado")
 
-    """
-    # Solicita el codigo del vuelo a modificar
-    codigo = input("Ingrese el código del vuelo a modificar: ")
+    opcion = int(input("Seleccione una opción: "))
 
-    # Variable para indicar si se encontró el vuelo a modificar
-    posicion = -1
-
-    # Recorrer todos los vuelos 
-    for i in range(len(vuelos)):
-        # Verificar si el codigo ingresado coincide 
-        if vuelos[i][0] == codigo:
-            posicion = i
-
-    # Si se encontro el vuelo
-    if posicion != -1:
-        # Pedir y guardar el nuevo destino
-        vuelos[i][1] = input("Nuevo destino: ")
-        # Pedir y guardar el nuevo horario
-        vuelos[i][2] = input("Nuevo horario: ")
-        # Pedir y guardar la nueva cantidad de pasajeros
-        vuelos[i][3] = int(input("Nueva cantidad de pasajeros: "))
-        # Pedir y guardar el nuevo peso de equipaje
-        vuelos[i][4] = float(input("Nuevo peso de equipaje: "))
-        # Pedir y guardar el nuevo estado
-        vuelos[i][5] = input("Nuevo estado: ")
-        # Pedir y guardar el nuevo tipo de vuelo
-        vuelos[i][6] = input("Nuevo tipo de vuelo: ")
-        print("Vuelo modificado exitosamente.")
-    
-
+    if opcion == 1:
+        vuelos[i][5] = "Programado"
+    elif opcion == 2:
+        vuelos[i][5] = "Embarcando"
+    elif opcion == 3:
+        vuelos[i][5] = "En Vuelo"
+    elif opcion == 4:
+        vuelos[i][5] = "Cancelado"
     else:
-        # Si no se encuentra el vuelo con el codigo ingresado
-        print("No se encontró un vuelo con el código ingresado.")
+        print("Opción inválida")
+
+
+def cambiar_tipo_vuelo(vuelos, i):
+    print("1. Nacional")
+    print("2. Internacional")
+
+    opcion = int(input("Seleccione una opción: "))
+
+    if opcion == 1:
+        vuelos[i][6] = "Nacional"
+    elif opcion == 2:
+        vuelos[i][6] = "Internacional"
+    else:
+        print("Opción inválida")
+
+
+def modificar_vuelos(vuelos):
+
+    print()
+    print("---- Modificación de vuelos ----")
+    print()
+
+    codigo = int(input("Ingrese el código del vuelo: "))
+
+    print("=" * 50)
+    print("1. Cambiar destino")
+    print("2. Cambiar horario")
+    print("3. Cambiar cantidad de pasajeros")
+    print("4. Cambiar equipaje")
+    print("5. Cambiar estado operativo")
+    print("6. Cambiar tipo de vuelo")
+    print("=" * 50)
+
+    opcion = int(input("¿Qué desea modificar?: "))
+
+    for i in range(len(vuelos)):
+
+        if vuelos[i][0] == codigo:
+
+            if opcion == 1:
+                vuelos[i][1] = input("Ingrese el nuevo destino (Ej: Buenos Aires): ")
+
+            elif opcion == 2:
+                vuelos[i][2] = input("Ingrese el nuevo horario (HH:MM): ")
+
+            elif opcion == 3:
+                vuelos[i][3] = int(input("Ingrese la nueva cantidad de pasajeros: "))
+
+            elif opcion == 4:
+                vuelos[i][4] = float(input("Ingrese el nuevo peso del equipaje (KG): "))
+
+            elif opcion == 5:
+                cambiar_estado(vuelos, i)
+
+            elif opcion == 6:
+                cambiar_tipo_vuelo(vuelos, i)
+
+            else:
+                print("Opción inválida")
+
+            return vuelos
+
+    print("No existe un vuelo con ese código")
     return vuelos
+
+def ordenar_vuelos(vuelos):
+
+    # Ordenar los vuelos por pasajeros (mayor a menor)
+    # Si empatan, ordenar por destino alfabéticamente
+    for i in range(len(vuelos)):
+        for j in range(i + 1, len(vuelos)):
+
+            if vuelos[i][3] < vuelos[j][3]:
+                aux = vuelos[i]
+                vuelos[i] = vuelos[j]
+                vuelos[j] = aux
+
+            elif vuelos[i][3] == vuelos[j][3]:
+
+                if vuelos[i][1] > vuelos[j][1]:
+                    aux = vuelos[i]
+                    vuelos[i] = vuelos[j]
+                    vuelos[j] = aux
+
 
 def informe(vuelos):
     """
     Autor: Facundo Gallo
-
     """
+
     # Verificar si hay vuelos registrados
     if len(vuelos) == 0:
         print("No hay vuelos registrados")
         return
-    
-    # Ordenar  los vulos por pasajeros (mayor a menor)
-    # Si dos vuelos tienen la misma cantidad de pasajeros, 
-    # los ordena alfabéticamente por destino
-    else:
-        for i in range(len(vuelos)):
-            for j in range(i + 1, len(vuelos)):
-                # Compara la cantidad de pasajeros
-                if vuelos[i][3] < vuelos[j][3]:
-                    # Intercambia los vuelos de posición
-                    aux = vuelos[i]
-                    vuelos[i] = vuelos[j]
-                    vuelos[j] = aux
-            
-                # Si tienen la misma cantidad de pasajeros
-                elif vuelos[i][3] == vuelos[j][3]:
-                    # Compara los destinos alfabéticamente
-                    if vuelos[i][1] > vuelos[j][1]:
-                        # Intercambia los vuelos de posición
-                        aux = vuelos[i]
-                        vuelos[i] = vuelos[j]
-                        vuelos[j] = aux
-        
+
+    # Llama a la función que ordena los vuelos
+    ordenar_vuelos(vuelos)
+
     print(4 * "--" + " INFORME GENERAL " + 4 * "--")
-    # Recorre todos los vuelos de la lista
+
+    # Mostrar la información de cada vuelo
     for vuelo in vuelos:
-        # Imprime los detalles de cada vuelo
         print()
         print("Código:", vuelo[0])
         print("Destino:", vuelo[1])
